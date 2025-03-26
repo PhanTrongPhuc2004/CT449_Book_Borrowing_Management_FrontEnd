@@ -1,29 +1,29 @@
 <script>
-// import NavBar from '../components/NavBar.vue';
-// import Footer from '../components/Footer.vue';
+import Header from '/src/components/Header.vue';
+import Footer from '/src/components/Footer.vue';
 export default {
-  // components: {
-  //   NavBar,
-  //   Footer,
-  // },
+  components: {
+    Header,
+    Footer,
+  },
 };
 </script>
 <template>
   <div id="app">
     <!-- NavBar -->
-    <NavBar />
+    <Header />
     <!-- Body -->
     <div class="container-fluid">
       <router-view></router-view>
+      <Footer />
     </div>
     <!-- Footer -->
-    <Footer />
   </div>
 </template>
 <style scoped>
 .container-fluid {
   margin-top: 80px;
-  margin-bottom: 80px;
-  min-height: calc(100vh - 180px);
+  margin-bottom: 0px;
+  height: 80vh;
 }
 </style>
