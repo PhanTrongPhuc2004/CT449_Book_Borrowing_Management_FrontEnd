@@ -104,6 +104,7 @@ export default {
 .container {
     max-width: 500px;
     margin-top: 110px !important;
+    height: 600px;
 }
 
 .custom-alert {

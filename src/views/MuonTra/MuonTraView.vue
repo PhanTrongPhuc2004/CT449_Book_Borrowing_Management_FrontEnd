@@ -6,7 +6,8 @@
           DANH MỤC MƯỢN TRẢ SÁCH
         </h1>
         <form class="d-flex" @submit.prevent="handleSearch">
-          <input class="form-control me-2" type="search" placeholder="Tìm kiếm" aria-label="Search" v-model="textSearch">
+          <input class="form-control me-2" type="search" placeholder="Tìm kiếm" aria-label="Search"
+            v-model="textSearch">
           <button class="btn btn-search" type="submit">Tìm</button>
         </form>
       </div>
@@ -36,6 +37,7 @@
           <th scope="col">Ngày Mượn</th>
           <th scope="col">Ngày Trả</th>
           <th scope="col">Trạng Thái</th>
+          <th scope="col">Hành Động</th>
         </tr>
       </thead>
       <tbody>
@@ -46,10 +48,18 @@
           <td>{{ formatDate(item.NgayMuon) }}</td>
           <td>{{ item.NgayTra ? formatDate(item.NgayTra) : 'Chưa trả' }}</td>
           <td>
-            <span :class="item.TrangThai === 'Đang mượn' ? 'badge bg-warning text-dark' : 'badge bg-success'">
-              <i :class="item.TrangThai === 'Đang mượn' ? 'bi bi-hourglass-split me-1' : 'bi bi-check-circle me-1'"></i>
+            <span :class="item.TrangThai === 'Đang mượn' || item.TrangThai === 'Yêu cầu' ? 'badge bg-warning text-dark' : 'badge bg-success'" style=" width: 90px;">
+              <i :class="item.TrangThai === 'Đang mượn' || item.TrangThai === 'Yêu cầu' ? 'bi bi-hourglass-split me-1' : 'bi bi-check-circle me-1'">
+              </i>
               {{ item.TrangThai }}
             </span>
+          </td>
+          <td>
+            <button class="btn btn-warning btn-sm" @click="traSach(item.MaSach)"
+              :disabled="item.TrangThai !== 'Yêu cầu'"
+              style="background-color: #36d1dc; border-color: #36d1dc; color: white; font-weight: bold;">
+              <i class="bi bi-check-circle me-1"></i>Duyệt
+            </button>
           </td>
         </tr>
       </tbody>

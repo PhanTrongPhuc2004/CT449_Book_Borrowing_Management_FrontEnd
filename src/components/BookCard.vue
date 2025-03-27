@@ -75,7 +75,7 @@
 </template>
 
 <script>
-// import { useRouter } from 'vue-router';
+import { useRouter } from 'vue-router';
 import { useAuthStore } from '/src/stores/xacThucStore.js';
 import { createBorrowings } from '/src/services/muonTraApiService.js'; // Đảm bảo import đúng API
 
@@ -86,13 +86,13 @@ export default {
     setup(props) {
         const authStore = useAuthStore();
         const user = authStore;
-        // const router = useRouter();
+        
 
         const handleBorrow = async () => {
             try {
                 // alert(props.book.MaSach + user.userData.MaDG)
                 await createBorrowings({ MaSach: props.book.MaSach, MaDG: user.userData.MaDG });
-                alert("Mượn sách thành công!");
+                alert("Yêu cầu mượn sách thành công, vui lòng chờ xác nhận từ thủ thư!");
                 // Tải lại trang sau khi mượn xong
                 location.reload();
             } catch (error) {

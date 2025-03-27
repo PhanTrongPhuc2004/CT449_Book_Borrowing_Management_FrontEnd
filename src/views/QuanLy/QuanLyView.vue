@@ -64,6 +64,7 @@ export default {
 .content-wrapper {
     display: flex;
     flex: 1;
+    height: 300px;
 
 }
 

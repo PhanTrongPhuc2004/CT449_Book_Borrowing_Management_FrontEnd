@@ -16,7 +16,7 @@
                     <li class="nav-item" :class="{ active: activeItem === 'home' }" @click="setActive('home')">
                         <router-link class="nav-link" aria-current="page" to="/">
                             <i class="fa-solid fa-house me-1"></i>
-                            Trang chủ
+                            Trang Chủ
                         </router-link>
                     </li>
                     <li class="nav-item ms-4" :class="{ active: activeItem === 'books' }" @click="setActive('books')">
@@ -30,7 +30,7 @@
                         @click="setActive('books-borrowed')">
                         <router-link class="nav-link " to="/sachmuon">
                             <i class="fa-solid fa-bookmark"></i>
-                            Sách đã mượn
+                            Sách Mượn
                         </router-link>
                     </li>
                    

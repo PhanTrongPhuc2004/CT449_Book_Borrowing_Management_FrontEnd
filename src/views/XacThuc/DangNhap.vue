@@ -48,6 +48,7 @@ export default {
 .container {
     max-width: 500px;
     margin-top: 10px;
+    height: 600px;
 }
 
 .custom-alert {

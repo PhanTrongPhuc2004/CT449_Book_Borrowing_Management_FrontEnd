@@ -1,7 +1,7 @@
 <template>
   <div class="container mt-5">
     <h2 class="text-center mb-4" style="color: #007bff; font-weight: bold; color: #1e3a8a; font-size: 2rem;">
-      <i class="bi bi-book me-2"></i>Danh sách sách đang mượn
+      <i class="bi bi-book me-2" style="font-weight: bold;"></i>SÁCH MƯỢN CỦA BẠN
     </h2>
     <!-- <h6>{{authStore.token}}</h6> -->
     <!-- Hiển thị loading khi đang tải dữ liệu -->
@@ -27,7 +27,8 @@
             <th scope="col">Ảnh Sách</th>
             <th scope="col">Ngày Mượn</th>
             <th scope="col">Trạng Thái</th>
-            <th scope="col">Hành Động</th>
+            <th scope="col">Trả Sách</th>
+            <th scope="col">Hủy Yêu Cầu</th>
           </tr>
         </thead>
         <tbody>
@@ -36,24 +37,27 @@
             <td>{{ item.MaSach }}</td>
             <td>{{ item.TenSach || 'Chưa có thông tin' }}</td>
             <td>
-              <img
-                :src="item.HinhAnh"
-                alt="Book Image"
-                class="book-image"
-              >
+              <img :src="item.HinhAnh" alt="Book Image" class="book-image">
             </td>
             <td>{{ formatDate(item.NgayMuon) }}</td>
             <td>
-              <span class="badge bg-warning text-dark">
+              <span class="badge bg-warning text-dark"
+                :style="item.TrangThai === 'Đang mượn' ? 'background-color: green !important; color: white !important;' : 'background-color: rgb(255, 193, 7) !important; color: white !important;'">
                 <i class="bi bi-hourglass-split me-1"></i>{{ item.TrangThai }}
               </span>
             </td>
             <td>
-              <button
-                class="btn btn-success btn-sm"
-                @click="traSach(item.MaSach)"
-                :disabled="item.TrangThai !== 'Đang mượn'" style="background-color: #36d1dc; border-color: #36d1dc;">
+              <button class="btn btn-success btn-sm" @click="traSach(item.MaSach)"
+                :disabled="item.TrangThai !== 'Đang mượn'"
+                style="background-color: #36d1dc; border-color: #36d1dc; color: white; font-weight: bold;">
                 <i class="bi bi-check-circle me-1"></i>Trả sách
+              </button>
+            </td>
+            <td>
+              <button class="btn btn-success btn-sm" @click="xoaYeuCau(item.MaSach)"
+                :disabled="item.TrangThai !== 'Yêu cầu'"
+                style="background-color: rgb(220, 53, 69); border-color: rgb(220, 53, 69); color: white; font-weight: bold; width: 80px;">
+                <i class="bi bi-check-circle me-1"></i>Hủy
               </button>
             </td>
           </tr>
@@ -65,7 +69,7 @@
 
 <script>
 import { useAuthStore } from '/src/stores/xacThucStore.js';
-import { getUseBorrowings, returnBorrowings } from '/src/services/muonTraApiService.js';
+import { getUseBorrowings, returnBorrowings, deleteBorrowings } from '/src/services/muonTraApiService.js';
 import { getSingleBook } from '/src/services/sachApiService.js';
 
 export default {
@@ -156,6 +160,28 @@ export default {
         alert('Trả sách thất bại: ' + (error.response?.data?.message || 'Lỗi không xác định'));
       }
     },
+    // Xử lý hủy yêu cầu
+    async xoaYeuCau(maSach) {
+      if (!confirm('Bạn có chắc muốn hủy yêu cầu mượn sách này không?')) return;
+
+      try {
+        const authStore = useAuthStore();
+        const response = await deleteBorrowings({
+          MaSach: maSach,
+          MaDG: authStore.userData.MaDG,
+        });
+
+        if (response.data.status === 'success') {
+          alert('Hủy yêu cầu thành công!');
+          // await this.loadDanhSachMuon();
+          // Tải lại danh sách sau khi hủy yêu cầu
+        }
+        location.reload(); // Tải lại trang để cập nhật danh sách
+      } catch (error) {
+        console.error('Lỗi khi hủy yêu cầu:', error);
+        alert('Hủy yêu cầu thất bại: ' + (error.response?.data?.message || 'Lỗi không xác định'));
+      }
+    },
   },
 };
 </script>
@@ -212,6 +238,7 @@ export default {
   border-radius: 10px;
   border: 1px solid #ccc;
   margin-bottom: 100px;
-  margin-top: 130px !important;
+  margin-top: 80px !important;
+  min-height: 500px;
 }
 </style>

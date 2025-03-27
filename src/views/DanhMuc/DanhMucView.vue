@@ -40,6 +40,8 @@
           <th scope="col">#</th>
           <th scope="col">Mã Danh Mục</th>
           <th scope="col">Tên Danh Mục</th>
+          <th scope="col">Chỉnh Sửa</th>
+          <th scope="col">Xóa</th>
         </tr>
       </thead>
       <tbody>
@@ -47,6 +49,18 @@
           <td>{{ index + 1 }}</td>
           <td>{{ item.MaDanhMuc }}</td>
           <td>{{ item.TenDanhMuc }}</td>
+          <td>
+            <button class="btn btn-warning btn-sm" @click="traSach(item.MaSach)"
+              style="background-color: rgb(255, 193, 7); border-color: rgb(255, 193, 7); color: white; font-weight: bold;">
+              <i class="bi bi-check-circle me-1"></i>Chỉnh sửa
+            </button>
+          </td>
+          <td>
+            <button class="btn btn-alert btn-sm" @click="traSach(item.MaSach)"
+              style="background-color: rgb(220, 53, 69); border-color: rgb(220, 53, 69); color: white; font-weight: bold;">
+              <i class="bi bi-check-circle me-1"></i>Xóa
+            </button>
+          </td>
         </tr>
       </tbody>
     </table>

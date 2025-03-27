@@ -21,3 +21,8 @@ export const returnBorrowings = async (data) => {
     const response = await axiosInstance.post('/tra', data);
     return response;
 }
+
+export const deleteBorrowings = async (data) => {
+    const response = await axiosInstance.post('/xoayeucau', data);
+    return response;
+}

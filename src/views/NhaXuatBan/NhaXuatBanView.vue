@@ -6,6 +6,7 @@
         <h1 class="me-auto text-head fs-1 fw-bold" style="text-align: center !important; color: #1e3a8a;">
           DANH MỤC NHÀ XUẤT BẢN
         </h1>
+        <!-- <h6>{{ filteredDanhSach }}</h6> -->
         <router-link v-if="user?.role === 'nhanvien' || user?.role === 'employee'" :to="{ name: 'ThemNXBView' }"
           class="btn btn-create me-3 fs-6 fw-bold rounded-3">
           <i class="fa-solid fa-plus"></i>
@@ -40,6 +41,9 @@
           <th scope="col">#</th>
           <th scope="col">Mã Nhà Xuất Bản</th>
           <th scope="col">Tên Nhà Xuất Bản</th>
+          <th scope="col">Chi Nhánh</th>
+          <th scope="col">Chỉnh Sửa</th>
+          <th scope="col">Xóa</th>
         </tr>
       </thead>
       <tbody>
@@ -47,6 +51,19 @@
           <td>{{ index + 1 }}</td>
           <td>{{ item.MaNXB }}</td>
           <td>{{ item.TenNXB }}</td>
+          <td>{{ item.DiaChi }}</td>
+          <td>
+            <button class="btn btn-warning btn-sm" @click="traSach(item.MaSach)"
+              style="background-color: rgb(255, 193, 7); border-color: rgb(255, 193, 7); color: white; font-weight: bold;">
+              <i class="bi bi-check-circle me-1"></i>Chỉnh sửa
+            </button>
+          </td>
+          <td>
+            <button class="btn btn-alert btn-sm" @click="traSach(item.MaSach)"
+              style="background-color: rgb(220, 53, 69); border-color: rgb(220, 53, 69); color: white; font-weight: bold;">
+              <i class="bi bi-check-circle me-1"></i>Xóa
+            </button>
+          </td>
         </tr>
       </tbody>
     </table>

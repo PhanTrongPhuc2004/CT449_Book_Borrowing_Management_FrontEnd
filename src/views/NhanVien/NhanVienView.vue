@@ -44,6 +44,8 @@
           <th scope="col">Email</th>
           <th scope="col">Chức Vụ</th>
           <th scope="col">Số Điện Thoại</th>
+          <th scope="col">Chỉnh Sửa</th>
+          <th scope="col">Xóa</th>
         </tr>
       </thead>
       <tbody>
@@ -55,6 +57,18 @@
           <td>{{ item.Email }}</td>
           <td>{{ item.ChucVu }}</td>
           <td>{{ item.SoDienThoai }}</td>
+          <td>
+            <button class="btn btn-warning btn-sm" @click="traSach(item.MaSach)"
+              style="background-color: rgb(255, 193, 7); border-color: rgb(255, 193, 7); color: white; font-weight: bold;">
+              <i class="bi bi-check-circle me-1"></i>Chỉnh sửa
+            </button>
+          </td>
+          <td>
+            <button class="btn btn-alert btn-sm" @click="traSach(item.MaSach)"
+              style="background-color: rgb(220, 53, 69); border-color: rgb(220, 53, 69); color: white; font-weight: bold;">
+              <i class="bi bi-check-circle me-1"></i>Xóa
+            </button>
+          </td>
         </tr>
       </tbody>
     </table>
@@ -124,13 +138,16 @@ export default {
   color: white;
   border: none;
 }
+
 .btn-search:hover {
   background-color: #2cb7c2;
 }
+
 .btn-create {
   background-color: #1e3a8a;
   color: white;
 }
+
 .btn-create:hover {
   background-color: #152c6e;
 }
